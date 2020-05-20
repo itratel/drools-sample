@@ -1,0 +1,13 @@
+package com.itratel.drools.droolssample;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DroolsSampleApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

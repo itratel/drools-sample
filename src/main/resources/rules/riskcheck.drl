@@ -1,0 +1,25 @@
+package com.itratel.drools
+
+import com.itratel.drools.droolssample.pojo.People
+import com.itratel.drools.droolssample.pojo.StudentRes
+import com.itratel.drools.droolssample.pojo.Subject
+
+dialect  "java"
+
+global java.util.List<StudentRes> resultList;
+
+rule first_rank1
+    salience 1
+    when
+        $p : StudentRes()
+        $stu1 : People($stu1.chinese < 1 && $stu1.chinese >= 0.58)
+                People($stu1.math < 1 && $stu1.math >= 0.58)
+                People($stu1.english < 1 && $stu1.english >= 0.58)
+    then
+        Subject chinese = new Subject().setData($stu1.getChinese()).setScore(10);
+        Subject math = new Subject().setData($stu1.getMath()).setScore(10);
+        Subject english = new Subject().setData($stu1.getEnglish()).setScore(10);
+        $p.setDeptCode($stu1.getDeptCode()).setName($stu1.getName()).setSub1(chinese).setSub2(math).setSub3(english);
+        resultList.add($p);
+        update($p)
+    end

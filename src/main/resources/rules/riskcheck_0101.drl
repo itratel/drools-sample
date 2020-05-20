@@ -1,0 +1,35 @@
+
+package com.itratel.drools
+
+import com.itratel.drools.droolssample.pojo.Student
+
+dialect  "java"
+
+rule first_rank
+    salience 1
+    when
+        $p : Student($p.proportion < 1 && $p.proportion >= 0.98)
+    then
+        $p.setScore(10d); System.out.println($p.getName() + " $p = " + $p);
+        update($p)
+    end
+
+
+rule second_rank
+    salience 1
+    when
+     $p : Student($p.proportion < 0.98 && $p.proportion >= 0.5)
+    then
+     $p.setScore(5d); System.out.println($p.getName() + " $p = " + $p);
+     update($p)
+    end
+
+
+rule other_rank
+    salience 1
+    when
+     $p : Student($p.proportion < 0.5 && $p.proportion >= 0)
+    then
+     $p.setScore(2d); System.out.println($p.getName() + " $p = " + $p);
+     update($p)
+    end
